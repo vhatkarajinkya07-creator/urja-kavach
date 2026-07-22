@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@import "primeicons/primeicons.css";
+
+@theme {
+  --color-background: #0B0E11;
+  --color-panel: #141A21;
+  --color-accent: #E8A33D;
+  --color-live: #3FC1C9;
+  --color-textMain: #E8ECEF;
+
+  --font-condensed: "IBM Plex Sans Condensed", sans-serif;
+  --font-body: "IBM Plex Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+body {
+  @apply bg-background text-textMain font-body m-0 p-0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-condensed;
+}
+
+.mono {
+  @apply font-mono;
+}
