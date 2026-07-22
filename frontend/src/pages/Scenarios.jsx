@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Slider } from 'primereact/slider';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
-import { Send, Settings, AlertTriangle } from 'lucide-react';
+import { Send, Settings, AlertTriangle, Activity } from 'lucide-react';
 
 export default function Scenarios() {
   const scenarios = useStore(state => state.scenarios);
