@@ -92,15 +92,29 @@ export default function Architecture() {
 
         {/* Judging Criteria Mapping */}
         <div className="bg-panel border border-gray-800 flex flex-col">
-          <div className="p-6 border-b border-gray-800 text-sm uppercase tracking-wider text-live flex items-center">
-            Judging Criteria Mapping
+          <div className="p-6 border-b border-gray-800 text-sm uppercase tracking-wider text-live flex items-center justify-between">
+            <span>Judging Criteria Mapping</span>
+            <span className="text-xs text-gray-500 font-mono">6 Evaluation Points</span>
           </div>
-          <div className="p-0 flex-1">
-             <DataTable value={criteriaData} stripedRows className="text-sm">
-                <Column field="page" header="Product Area" className="font-bold py-4 px-6 min-w-[150px]"></Column>
-                <Column field="criteria" header="Target Criteria" className="py-4 px-6 font-mono text-accent whitespace-nowrap"></Column>
-                <Column field="description" header="Implementation Details" className="py-4 px-6 text-gray-400"></Column>
-             </DataTable>
+          <div className="p-0 flex-1 overflow-x-auto">
+             <table className="w-full text-left text-sm border-collapse">
+                <thead>
+                   <tr className="bg-[#1A222C] border-b border-gray-800 text-xs text-gray-400 uppercase tracking-wider">
+                      <th className="py-3 px-6">Product Area</th>
+                      <th className="py-3 px-6">Target Criteria</th>
+                      <th className="py-3 px-6">Implementation Details</th>
+                   </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-800/60">
+                   {criteriaData.map((item, idx) => (
+                      <tr key={idx} className="hover:bg-gray-800/40 transition-colors">
+                         <td className="py-4 px-6 font-bold text-white whitespace-nowrap">{item.page}</td>
+                         <td className="py-4 px-6 font-mono text-accent whitespace-nowrap font-semibold">{item.criteria}</td>
+                         <td className="py-4 px-6 text-gray-300 text-xs leading-relaxed">{item.description}</td>
+                      </tr>
+                   ))}
+                </tbody>
+             </table>
           </div>
         </div>
 

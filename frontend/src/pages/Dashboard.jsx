@@ -117,12 +117,47 @@ export default function Dashboard() {
              <div className="text-sm uppercase tracking-wider text-gray-400">Corridor Risk Matrix</div>
              <Link to="/risk-intelligence" className="text-xs text-live uppercase tracking-wider hover:underline">View Intelligence</Link>
           </div>
-          <div className="p-0 flex-1">
-             <DataTable value={corridors} loading={loading} stripedRows className="text-sm" emptyMessage="No corridors found.">
-                <Column field="name" header="Corridor" className="font-bold py-3 px-4"></Column>
-                <Column field="currentRiskScore" header="Risk Score" body={riskTemplate} className="py-3 px-4"></Column>
-                <Column field="activeSignals.length" header="Active Signals" className="py-3 px-4 font-mono text-gray-400"></Column>
-             </DataTable>
+          <div className="p-0 flex-1 overflow-x-auto">
+             <table className="w-full text-left text-sm border-collapse">
+                <thead>
+                   <tr className="bg-[#1A222C] border-b border-gray-800 text-xs text-gray-400 uppercase tracking-wider">
+                      <th className="py-3 px-4">Corridor</th>
+                      <th className="py-3 px-4">Risk Score</th>
+                      <th className="py-3 px-4">Active Signals</th>
+                   </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-800/60">
+                   {corridors.map((c, idx) => (
+                      <tr key={c._id || idx} className="hover:bg-gray-800/40 transition-colors">
+                         <td className="py-3 px-4 font-bold text-white">{c.name}</td>
+                         <td className="py-3 px-4">
+                            <div className="flex items-center space-x-2">
+                               <span className={`font-mono font-bold text-base ${c.currentRiskScore > 75 ? 'text-accent' : 'text-live'}`}>
+                                  {c.currentRiskScore}
+                               </span>
+                               {c.currentRiskScore > 75 ? (
+                                  <TrendingUp className="w-4 h-4 text-accent" />
+                               ) : (
+                                  <Activity className="w-4 h-4 text-live" />
+                               )}
+                            </div>
+                         </td>
+                         <td className="py-3 px-4 font-mono text-gray-300">
+                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-gray-800 text-gray-300 border border-gray-700">
+                              {c.activeSignals ? c.activeSignals.length : 0} signals
+                            </span>
+                         </td>
+                      </tr>
+                   ))}
+                   {corridors.length === 0 && (
+                      <tr>
+                         <td colSpan={3} className="py-6 text-center text-gray-500 text-sm">
+                            No corridors loaded.
+                         </td>
+                      </tr>
+                   )}
+                </tbody>
+             </table>
           </div>
         </div>
 

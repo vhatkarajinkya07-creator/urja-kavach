@@ -24,3 +24,79 @@ h1, h2, h3, h4, h5, h6 {
 .mono {
   @apply font-mono;
 }
+
+/* Custom Dark Theme Styles for PrimeReact Components */
+.p-datatable {
+  background-color: transparent !important;
+  color: #E8ECEF !important;
+  width: 100% !important;
+}
+
+.p-datatable .p-datatable-header {
+  background-color: #141A21 !important;
+  border-color: #1F2937 !important;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  background-color: #1A222C !important;
+  color: #9CA3AF !important;
+  border-bottom: 1px solid #2D3748 !important;
+  text-transform: uppercase !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.05em !important;
+  padding: 0.75rem 1rem !important;
+}
+
+.p-datatable .p-datatable-tbody > tr {
+  background-color: #141A21 !important;
+  color: #E8ECEF !important;
+  border-bottom: 1px solid #1F2937 !important;
+  transition: background-color 0.15s ease !important;
+}
+
+.p-datatable .p-datatable-tbody > tr:nth-child(even) {
+  background-color: #182028 !important;
+}
+
+.p-datatable .p-datatable-tbody > tr:hover {
+  background-color: #232D38 !important;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  padding: 0.75rem 1rem !important;
+  border: none !important;
+  color: #E8ECEF !important;
+}
+
+.p-datatable-empty-message td {
+  color: #9CA3AF !important;
+  text-align: center !important;
+  padding: 2rem !important;
+}
+
+.p-accordion .p-accordion-header .p-accordion-header-link {
+  background-color: transparent !important;
+  border-color: #1F2937 !important;
+  color: #9CA3AF !important;
+}
+
+.p-accordion .p-accordion-content {
+  background-color: transparent !important;
+  border-color: #1F2937 !important;
+  color: #9CA3AF !important;
+}
+
+.p-slider {
+  background: #1F2937 !important;
+  height: 6px !important;
+}
+
+.p-slider .p-slider-range {
+  background: #E8A33D !important;
+}
+
+.p-slider .p-slider-handle {
+  background: #E8A33D !important;
+  border-color: #E8A33D !important;
+}
+
