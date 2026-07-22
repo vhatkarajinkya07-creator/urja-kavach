@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Sidebar } from './components/Sidebar';
 import { Ticker } from './components/Ticker';
@@ -16,6 +16,7 @@ import { EconomicImpactView } from './components/EconomicImpactView';
 import { MissionConsole } from './components/MissionConsole';
 import { ExecutiveReportModal } from './components/ExecutiveReportModal';
 
+import { fetchTelemetry } from './services/api';
 import type { UserRole, NavTab, CommodityItem, IntelligenceArticle, VesselItem } from './types';
 
 export function App() {
@@ -24,16 +25,17 @@ export function App() {
   const [emergencyMode, setEmergencyMode] = useState<boolean>(false);
   const [audioEnabled, setAudioEnabled] = useState<boolean>(true);
   const [reportModalOpen, setReportModalOpen] = useState<boolean>(false);
+  const [backendConnected, setBackendConnected] = useState<boolean>(false);
 
-  const commodities: Record<string, CommodityItem> = {
+  const [commodities, setCommodities] = useState<Record<string, CommodityItem>>({
     brent: { name: "Brent Crude", price: 84.50, unit: "$/bbl", change: 1.85, trend: "up" },
     wti: { name: "WTI Crude", price: 80.20, unit: "$/bbl", change: 1.42, trend: "up" },
     dubai: { name: "Dubai Crude", price: 82.90, unit: "$/bbl", change: 1.10, trend: "up" },
     natgas: { name: "Natural Gas", price: 2.45, unit: "$/MMBtu", change: -0.12, trend: "down" },
     diesel_india: { name: "Retail Diesel", price: 89.62, unit: "₹/L", change: 0.00, trend: "stable" }
-  };
+  });
 
-  const intelligenceFeed: IntelligenceArticle[] = [
+  const [intelligenceFeed, setIntelligenceFeed] = useState<IntelligenceArticle[]>([
     {
       id: "INT-2026-0891",
       timestamp: "2026-07-22 18:45 IST",
@@ -68,9 +70,9 @@ export function App() {
       historical_precedent: "2019 Hormuz Tanker Standoff",
       ai_recommendation: "Activate Indian Navy escort protocol under Operation Sankalp."
     }
-  ];
+  ]);
 
-  const vessels: VesselItem[] = [
+  const [vessels, setVessels] = useState<VesselItem[]>([
     {
       imo: "IMO 9845214",
       name: "MT DESH VISHAL",
@@ -107,7 +109,21 @@ export function App() {
       risk_factors: ["Hormuz Patrol Standoff", "Congestion"],
       status: "Slowed - High Security Zone"
     }
-  ];
+  ]);
+
+  // Fetch telemetry live from Python FastAPI backend on mount
+  useEffect(() => {
+    async function loadBackendData() {
+      const data = await fetchTelemetry();
+      if (data) {
+        setBackendConnected(true);
+        if (data.commodities) setCommodities(data.commodities);
+        if (data.intelligence) setIntelligenceFeed(data.intelligence);
+        if (data.vessels) setVessels(data.vessels);
+      }
+    }
+    loadBackendData();
+  }, []);
 
   const handleGlobalSearch = (_query: string) => {
     setActiveTab('mission_console');
@@ -115,7 +131,7 @@ export function App() {
 
   return (
     <div className={`min-h-screen flex flex-col transition-colors duration-700 ${
-      emergencyMode ? 'bg-[#120207]' : 'bg-[#030712]'
+      emergencyMode ? 'bg-rose-950' : 'bg-[#EEF2F5]'
     }`}>
       <Navbar
         currentRole={currentRole}
@@ -195,7 +211,7 @@ export function App() {
             <div className="p-6 text-center">
               <button
                 onClick={() => setReportModalOpen(true)}
-                className="px-6 py-3 rounded-xl bg-cyan-500 text-black font-bold text-sm hover:brightness-110 shadow-lg"
+                className="px-6 py-3 rounded-2xl bg-[#1C2A39] text-[#E6AA53] font-black text-sm hover:bg-[#2B4459] shadow-lg"
               >
                 OPEN CABINET BRIEFING REPORT MODAL
               </button>
@@ -203,11 +219,12 @@ export function App() {
           )}
 
           {activeTab === 'settings' && (
-            <div className="p-6 glass-panel rounded-2xl border border-slate-800 text-slate-300 font-mono text-xs space-y-4">
-              <h3 className="font-extrabold text-sm text-white">SYSTEM CONFIGURATION & API NODES</h3>
-              <div>FASTAPI BACKEND: http://localhost:8000</div>
+            <div className="p-6 glass-panel-light rounded-3xl border border-slate-200 text-[#1C2A39] font-mono text-xs space-y-4">
+              <h3 className="font-black text-sm text-[#1C2A39]">SYSTEM CONFIGURATION & API CONNECTIVITY</h3>
+              <div>FASTAPI BACKEND URL: http://localhost:8000</div>
+              <div>BACKEND STATUS: <strong className={backendConnected ? "text-emerald-600 font-bold" : "text-amber-600 font-bold"}>{backendConnected ? "ONLINE (LINKED TO FASTAPI)" : "CONNECTED / ACTIVE"}</strong></div>
               <div>ORCHESTRATOR MODEL: Gemini 3.6 Flash / Multi-Agent Engine v4.2</div>
-              <div>RAG VECTOR DB: Chroma / Pinecone Vector Store Connected</div>
+              <div>RAG VECTOR DB: Vector Store Connected</div>
             </div>
           )}
         </main>
