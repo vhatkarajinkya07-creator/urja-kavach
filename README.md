@@ -6,7 +6,7 @@ Urja Kavach is an end-to-end digital twin and real-time risk intelligence platfo
 ---
 
 ## ✨ Features
-
+ 
 - 🚨 **Risk Intelligence Radar**: Real-time risk scoring, tension monitoring, and signal detection across major maritime choke points.
 - 🌐 **Interactive Digital Twin**: Interactive geospatial tracking of crude oil shipping routes, naval activity, and risk zones powered by Leaflet.
 - 🧪 **Scenario Simulation Engine**: Computes macro impact models (refinery run rates, fuel price surges, GDP impact, power grid stress) during corridor blockades or disruptions.
