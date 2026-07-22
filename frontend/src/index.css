@@ -1,102 +1,86 @@
 @import "tailwindcss";
-@import "primeicons/primeicons.css";
 
-@theme {
-  --color-background: #0B0E11;
-  --color-panel: #141A21;
-  --color-accent: #E8A33D;
-  --color-live: #3FC1C9;
-  --color-textMain: #E8ECEF;
+@layer base {
+  :root {
+    --bg-primary: #EEF2F5;
+    --bg-surface: #FFFFFF;
+    --bg-dark-slate: #1C2A39;
+    --bg-cream: #FAF4EA;
+    --accent-gold: #E6AA53;
+    --accent-gold-hover: #D99B43;
+    --accent-teal: #2B4459;
+    --text-primary: #1C2A39;
+    --text-secondary: #566A7A;
+    --text-muted: #8A9DAE;
+    --border-light: #E2E8EE;
+    --border-cream: #F0E4D2;
+  }
 
-  --font-condensed: "IBM Plex Sans Condensed", sans-serif;
-  --font-body: "IBM Plex Sans", sans-serif;
-  --font-mono: "IBM Plex Mono", monospace;
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
 }
 
-body {
-  @apply bg-background text-textMain font-body m-0 p-0;
+/* Custom Light UI Glassmorphism & Neumorphic Utilities matching Reference Screenshot */
+.glass-panel-light {
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 238, 0.9);
+  box-shadow: 0 10px 30px -5px rgba(28, 42, 57, 0.07), 0 4px 12px -2px rgba(28, 42, 57, 0.04);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  @apply font-condensed;
+.card-dark-slate {
+  background: #1C2A39;
+  color: #FFFFFF;
+  border: 1px solid #283B4E;
+  box-shadow: 0 12px 32px -6px rgba(28, 42, 57, 0.25);
 }
 
-.mono {
-  @apply font-mono;
+.card-cream-warm {
+  background: #FAF4EA;
+  color: #1C2A39;
+  border: 1px solid #F0E4D2;
+  box-shadow: 0 6px 20px -4px rgba(230, 170, 83, 0.12);
 }
 
-/* Custom Dark Theme Styles for PrimeReact Components */
-.p-datatable {
-  background-color: transparent !important;
-  color: #E8ECEF !important;
-  width: 100% !important;
+.badge-gold {
+  background: #E6AA53;
+  color: #1C2A39;
+  font-weight: 700;
 }
 
-.p-datatable .p-datatable-header {
-  background-color: #141A21 !important;
-  border-color: #1F2937 !important;
+.badge-slate {
+  background: #2B4459;
+  color: #FFFFFF;
 }
 
-.p-datatable .p-datatable-thead > tr > th {
-  background-color: #1A222C !important;
-  color: #9CA3AF !important;
-  border-bottom: 1px solid #2D3748 !important;
-  text-transform: uppercase !important;
-  font-size: 0.75rem !important;
-  letter-spacing: 0.05em !important;
-  padding: 0.75rem 1rem !important;
+.glow-gold {
+  box-shadow: 0 0 24px rgba(230, 170, 83, 0.35);
 }
 
-.p-datatable .p-datatable-tbody > tr {
-  background-color: #141A21 !important;
-  color: #E8ECEF !important;
-  border-bottom: 1px solid #1F2937 !important;
-  transition: background-color 0.15s ease !important;
+.glow-slate {
+  box-shadow: 0 0 24px rgba(28, 42, 57, 0.2);
 }
 
-.p-datatable .p-datatable-tbody > tr:nth-child(even) {
-  background-color: #182028 !important;
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
 
-.p-datatable .p-datatable-tbody > tr:hover {
-  background-color: #232D38 !important;
+::-webkit-scrollbar-track {
+  background: #EEF2F5;
 }
 
-.p-datatable .p-datatable-tbody > tr > td {
-  padding: 0.75rem 1rem !important;
-  border: none !important;
-  color: #E8ECEF !important;
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 3px;
 }
 
-.p-datatable-empty-message td {
-  color: #9CA3AF !important;
-  text-align: center !important;
-  padding: 2rem !important;
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
 }
-
-.p-accordion .p-accordion-header .p-accordion-header-link {
-  background-color: transparent !important;
-  border-color: #1F2937 !important;
-  color: #9CA3AF !important;
-}
-
-.p-accordion .p-accordion-content {
-  background-color: transparent !important;
-  border-color: #1F2937 !important;
-  color: #9CA3AF !important;
-}
-
-.p-slider {
-  background: #1F2937 !important;
-  height: 6px !important;
-}
-
-.p-slider .p-slider-range {
-  background: #E8A33D !important;
-}
-
-.p-slider .p-slider-handle {
-  background: #E8A33D !important;
-  border-color: #E8A33D !important;
-}
-
